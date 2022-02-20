@@ -57,8 +57,8 @@ void ivestis(zmogus& temp) {
 
 	std::vector<int> vekpaz(temp.paz, temp.paz + a);
 	std::sort (vekpaz.begin(), vekpaz.end());
-	for (auto it = vekpaz.begin(); it != vekpaz.end(); ++it)
-		cout << " " << *it;
+	//for (auto it = vekpaz.begin(); it != vekpaz.end(); ++it)
+	//	cout << " " << *it;
 	if (a % 2 != 0)
 		temp.median = vekpaz[(a / 2)];
 	else
