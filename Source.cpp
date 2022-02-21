@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <vector>
+#include <random>
 using std::cout;
 using std::cin;
 using std::string;
@@ -37,25 +38,48 @@ int main() {
 void ivestis(zmogus& temp) {
 	int a = 0;
 	int check = 1;
+	bool rd;
+	int temprando;
 	temp.vpaz.reserve(100);
 	cout << "Iveskite varda: ";
 	cin >> temp.vardas;
 	cout << "Iveskite pavarde: ";
 	cin >> temp.pavarde;
-	while (true) {
-		cout << "Iveskite " << temp.vpaz.size() + 1 << "-a(-i) pazymi(jei norite baigti, spauskite 0):";
-		cin >> check;
-		if (check == 0)
-			break;
-		else {
-			temp.vpaz.push_back(check);
-			temp.rezult += check;
+	cout << "Ar norite automatiskai sugeneruoti pazymius(1 taip, 0 ne)? ";
+	cin >> rd;
+	if (rd) {
+		std::random_device rd;
+		std::mt19937 mt(rd());
+		std::uniform_int_distribution<int> dist(0, 99);
+		a = dist(mt);
+		std::uniform_int_distribution<int> dist2(1, 10);
+		for (int i = 0; i < a; i++) {
+			temprando = dist2(mt);
+			temp.vpaz.push_back(temprando);
+			temp.rezult += temprando;
 		}
+		temprando = dist2(mt);
+		temp.egz = temprando;
+		temp.rezult += temp.egz;
+		temp.vpaz.push_back(temp.egz);
 	}
-	cout << "Iveskite egzamino ivertinima: ";
-	cin >> temp.egz;
-	temp.rezult += temp.egz;
-	temp.vpaz.push_back(temp.egz);
+	else {
+		while (true) {
+			cout << "Iveskite " << temp.vpaz.size() + 1 << "-a(-i) pazymi(jei norite baigti, spauskite 0):";
+			cin >> check;
+			if (check == 0)
+				break;
+			else {
+				temp.vpaz.push_back(check);
+				temp.rezult += check;
+			}
+		}
+		cout << "Iveskite egzamino ivertinima: ";
+		cin >> temp.egz;
+		temp.rezult += temp.egz;
+		temp.vpaz.push_back(temp.egz);
+	}
+	
 	a = temp.vpaz.size();
 	temp.ndskc = a;
 
@@ -74,5 +98,5 @@ void isvestis(zmogus& temp, bool vm) {
 		cout << "|" << std::left << std::setw(20) << temp.median << "|" << std::endl;
 	}
 	else
-		cout << "|" << std::left << std::setw(20) << temp.rezult/(temp.ndskc);
+		cout << "|" << std::left << std::setw(20) << temp.rezult/(temp.ndskc)<< std::endl;
 }
