@@ -8,7 +8,6 @@ using std::cout;
 using std::cin;
 using std::string;
 #define N 100
-#define M 3
 struct zmogus {
 	string vardas = "", pavarde = "";
 	int paz[N] = { 0 }, egz = 0, ndskc =0;
@@ -20,6 +19,9 @@ void ivestis(zmogus& temp);
 void isvestis(zmogus& temp, bool vm);
 int main() {
 	zmogus a;
+	int M;
+	cout << "Iveskite zmoniu kieki: ";
+	cin >> M;
 	zmogus* amas = new zmogus[M];
 	bool vm;
 	for (int i = 0; i < M; i++) {
@@ -50,18 +52,16 @@ void ivestis(zmogus& temp) {
 	if (rd) {
 		std::random_device rd;
 		std::mt19937 mt(rd());
-		std::uniform_int_distribution<int> dist(0, 99);
-		a = dist(mt);
-		std::uniform_int_distribution<int> dist2(1, 10);
+		cout << "Kiek pazymiu sugeneruoti? ";
+		cin >> a;
+		std::uniform_int_distribution<int> dist(1, 10);
 		for (int i = 0; i < a; i++) {
-			temprando = dist2(mt);
+			temprando = dist(mt);
 			temp.vpaz.push_back(temprando);
 			temp.rezult += temprando;
 		}
-		temprando = dist2(mt);
+		temprando = dist(mt);
 		temp.egz = temprando;
-		temp.rezult += temp.egz;
-		temp.vpaz.push_back(temp.egz);
 	}
 	else {
 		while (true) {
@@ -76,8 +76,6 @@ void ivestis(zmogus& temp) {
 		}
 		cout << "Iveskite egzamino ivertinima: ";
 		cin >> temp.egz;
-		temp.rezult += temp.egz;
-		temp.vpaz.push_back(temp.egz);
 	}
 	
 	a = temp.vpaz.size();
@@ -98,5 +96,5 @@ void isvestis(zmogus& temp, bool vm) {
 		cout << "|" << std::left << std::setw(20) << temp.median << "|" << std::endl;
 	}
 	else
-		cout << "|" << std::left << std::setw(20) << temp.rezult/(temp.ndskc)<< std::endl;
+		cout << "|" << std::left << std::setw(20) << (temp.rezult/(temp.ndskc))*0.4+temp.egz*0.6<< std::endl;
 }
