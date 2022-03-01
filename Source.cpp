@@ -7,10 +7,9 @@
 using std::cout;
 using std::cin;
 using std::string;
-#define N 100
 struct zmogus {
 	string vardas = "", pavarde = "";
-	int paz[N] = { 0 }, egz = 0, ndskc =0;
+	int egz = 0, ndskc =0;
 	std::vector<int> vpaz;
 	double rezult = 0;
 	double median = 0;
@@ -18,11 +17,11 @@ struct zmogus {
 void ivestis(zmogus& temp);
 void isvestis(zmogus& temp, bool vm);
 int main() {
-	zmogus a;
 	int M;
 	cout << "Iveskite zmoniu kieki: ";
 	cin >> M;
-	zmogus* amas = new zmogus[M];
+	std::vector<zmogus> amas;
+	amas.resize(M);
 	bool vm;
 	for (int i = 0; i < M; i++) {
 		ivestis(amas[i]);
@@ -34,7 +33,6 @@ int main() {
 	for (int i = 0; i < M; i++) {
 		isvestis(amas[i], vm);
 	}
-	delete[] amas;
 	system("pause");
 }
 void ivestis(zmogus& temp) {
@@ -42,7 +40,6 @@ void ivestis(zmogus& temp) {
 	int check = 1;
 	bool rd;
 	int temprando;
-	temp.vpaz.reserve(100);
 	cout << "Iveskite varda: ";
 	cin >> temp.vardas;
 	cout << "Iveskite pavarde: ";
