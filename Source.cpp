@@ -15,19 +15,42 @@ struct zmogus {
 	double median = 0;
 };
 void ivestis(zmogus& temp);
-void isvestis(zmogus& temp, bool vm);
+void isvestis(zmogus& temp, int vm);
 int main() {
+	string laikinas = "";
 	int M;
-	cout << "Iveskite zmoniu kieki: ";
-	cin >> M;
+	while (true) {
+		cout << "Iveskite zmoniu kieki: ";
+		try {
+			std::getline(cin, laikinas);
+			M = stoi(laikinas);
+			break;
+		}
+		catch (...) {
+			cout << "Neteisingas kiekis"<<std::endl;
+		}
+	}
 	std::vector<zmogus> amas;
 	amas.resize(M);
-	bool vm;
+	int vm;
 	for (int i = 0; i < M; i++) {
 		ivestis(amas[i]);
 	}
-	cout << "Galutini pazymi skaiciuoti pagal vidurki(0) ar pagal mediana(1): ";
-	cin >> vm;
+	while (true) {
+		cout << "Galutini pazymi skaiciuoti pagal vidurki(0) ar pagal mediana(1): ";
+		std::getline(cin, laikinas);
+		try {
+			vm = stoi(laikinas);
+			if (vm != 0 && vm != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
+			break;
+		}
+		catch (...) {
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
+		}
+	}
 	cout << std::endl<< "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)";
 	cout << std::endl << "---------------------------------------------------" << std::endl;
 	for (int i = 0; i < M; i++) {
@@ -37,20 +60,44 @@ int main() {
 }
 void ivestis(zmogus& temp) {
 	int a = 0;
+	string laikinas;
 	int check = 1;
-	bool rd;
+	int rd;
 	int temprando;
 	cout << "Iveskite varda: ";
 	cin >> temp.vardas;
 	cout << "Iveskite pavarde: ";
 	cin >> temp.pavarde;
-	cout << "Ar norite automatiskai sugeneruoti pazymius(1 taip, 0 ne)? ";
-	cin >> rd;
-	if (rd) {
+	std::getline(cin, laikinas);
+	while (true) {
+		cout << "Ar norite automatiskai sugeneruoti pazymius(1 taip, 0 ne)? ";
+		std::getline(cin, laikinas);
+		try {
+			rd = stoi(laikinas);
+			if (rd != 0 && rd != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
+			break;
+		}
+		catch (...) {
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
+		}
+	}
+	if (rd==1) {
 		std::random_device rd;
 		std::mt19937 mt(rd());
-		cout << "Kiek pazymiu sugeneruoti? ";
-		cin >> a;
+		while (true) {
+			cout << "Kiek pazymiu sugeneruoti? ";
+			try {
+				std::getline(cin, laikinas);
+				a = stoi(laikinas);
+				break;
+			}
+			catch (...) {
+				cout << "Neteisingas kiekis" << std::endl;
+			}
+		}
 		std::uniform_int_distribution<int> dist(1, 10);
 		for (int i = 0; i < a; i++) {
 			temprando = dist(mt);
@@ -63,34 +110,56 @@ void ivestis(zmogus& temp) {
 	else {
 		while (true) {
 			cout << "Iveskite " << temp.vpaz.size() + 1 << "-a(-i) pazymi(jei norite baigti, spauskite 0):";
-			cin >> check;
+			try {
+				std::getline(cin, laikinas);
+				check = stoi(laikinas);
+			}
+			catch (...) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
 			if (check == 0)
 				break;
+			else if (check < 0 || check >10) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
 			else {
 				temp.vpaz.push_back(check);
 				temp.rezult += check;
 			}
 		}
-		cout << "Iveskite egzamino ivertinima: ";
-		cin >> temp.egz;
+		while (true) {
+			cout << "Iveskite egzamino ivertinima: ";
+			try {
+				std::getline(cin, laikinas);
+				temp.egz = stoi(laikinas);
+				if (temp.egz <= 0 || temp.egz > 10) {
+					cout << "Ivestas ne tas pasirinkimas" << std::endl;
+					continue;
+				}
+				break;
+			}
+			catch (...) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+			}
+		}
 	}
 	
 	a = temp.vpaz.size();
 	temp.ndskc = a;
 
-	std::sort (temp.vpaz.begin(), temp.vpaz.end());
-	//for (auto it = vekpaz.begin(); it != vekpaz.end(); ++it)
-	//	cout << " " << *it;
+	std::sort(temp.vpaz.begin(), temp.vpaz.end());
 	if (a % 2 != 0)
 		temp.median = temp.vpaz[(a / 2)];
 	else
 		temp.median = (temp.vpaz[(a / 2)-1] + temp.vpaz[a / 2]) / 2.0;
 }
-void isvestis(zmogus& temp, bool vm) {
+void isvestis(zmogus& temp, int vm) {
 	cout << "|" << std::left << std::setw(20) << temp.vardas << "|" << std::left <<
 		std::setw(20) << temp.pavarde << std::right;
-	if (vm) {
-		cout << "|" << std::left << std::setw(20) << temp.median << "|" << std::endl;
+	if (vm==1) {
+		cout << "|" << std::left << std::setw(20) << temp.median*0.4+temp.egz*0.6 << "|" << std::endl;
 	}
 	else
 		cout << "|" << std::left << std::setw(20) << (temp.rezult/(temp.ndskc))*0.4+temp.egz*0.6<< std::endl;
