@@ -4,6 +4,8 @@
 #include <algorithm>
 #include <vector>
 #include <random>
+#include <fstream>
+#include <sstream>
 using std::cout;
 using std::cin;
 using std::string;
@@ -16,25 +18,93 @@ struct zmogus {
 };
 void ivestis(zmogus& temp);
 void isvestis(zmogus& temp, int vm);
+void fisvestis(std::vector <zmogus> temp, int vm);
 int main() {
 	string laikinas = "";
-	int M;
+	int M, N;
+	int vm;
+	std::vector<string> ndskcc;
+	std::vector<zmogus> amas;
 	while (true) {
-		cout << "Iveskite zmoniu kieki: ";
+		cout << "Ar norite pazymius ivesti is failo?(1 taip, 0 ne)? ";
+		std::getline(cin, laikinas);
 		try {
-			std::getline(cin, laikinas);
-			M = stoi(laikinas);
+			N = stoi(laikinas);
+			if (N != 0 && N != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
 			break;
 		}
 		catch (...) {
-			cout << "Neteisingas kiekis"<<std::endl;
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
 		}
 	}
-	std::vector<zmogus> amas;
-	amas.resize(M);
-	int vm;
-	for (int i = 0; i < M; i++) {
-		ivestis(amas[i]);
+	if (N == 1) {
+		//std::vector<string> eilutes;
+		//string eil = "";
+		std::stringstream bufferis;
+		std::ifstream open_f("kursiokai.txt");
+		bufferis << open_f.rdbuf();
+		open_f.close();
+		string temp;
+		zmogus ztemp;
+		int itemp;
+		bufferis >> temp;
+		bufferis >> temp;
+		while (true) {
+			bufferis >> temp;
+			if (temp == "Egz.") 
+				break;
+			ndskcc.push_back(temp);
+		}
+		while (bufferis) {
+			if (!bufferis.eof()) {
+				amas.push_back(ztemp);
+				//std::getline(bufferis, eil);
+				//eilutes.push_back(eil);
+				bufferis >> amas[amas.size() - 1].vardas;
+				bufferis >> amas[amas.size() - 1].pavarde;
+				for (int i = 0; i < ndskcc.size(); i++) {
+					bufferis >> itemp;
+					amas[amas.size() - 1].vpaz.push_back(itemp);
+					amas[amas.size() - 1].rezult += itemp;
+				}
+				bufferis >> amas[amas.size() - 1].egz;
+				amas[amas.size() - 1].ndskc = ndskcc.size();
+
+				std::sort(amas[amas.size() - 1].vpaz.begin(), amas[amas.size() - 1].vpaz.end());
+				if (ndskcc.size() % 2 != 0)
+					amas[amas.size() - 1].median = amas[amas.size() - 1].vpaz[(ndskcc.size() / 2)];
+				else
+					amas[amas.size() - 1].median = (amas[amas.size() - 1].vpaz[(ndskcc.size() / 2) - 1] + amas[amas.size() - 1].vpaz[ndskcc.size() / 2]) / 2.0;
+			}
+			else break;
+		}
+		//amas.resize(eilutes.size());
+		//std::vector<string> ndskc;
+		//for (int i = 0; i < eilutes.size(); i++) {
+		//	bufferis >> amas[i].vardas;
+		//	bufferis >> amas[i].pavarde;
+		//
+		//}
+	}
+	else {
+		while (true) {
+			cout << "Iveskite zmoniu kieki: ";
+			try {
+				std::getline(cin, laikinas);
+				M = stoi(laikinas);
+				break;
+			}
+			catch (...) {
+				cout << "Neteisingas kiekis" << std::endl;
+			}
+		}
+		amas.resize(M);
+		for (int i = 0; i < M; i++) {
+			ivestis(amas[i]);
+		}
 	}
 	while (true) {
 		cout << "Galutini pazymi skaiciuoti pagal vidurki(0) ar pagal mediana(1): ";
@@ -53,8 +123,13 @@ int main() {
 	}
 	cout << std::endl<< "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)";
 	cout << std::endl << "---------------------------------------------------" << std::endl;
-	for (int i = 0; i < M; i++) {
-		isvestis(amas[i], vm);
+	if (N == 1) {
+		fisvestis(amas, vm);
+	}
+	else {
+		for (int i = 0; i < M; i++) {
+			isvestis(amas[i], vm);
+		}
 	}
 	system("pause");
 }
@@ -163,4 +238,21 @@ void isvestis(zmogus& temp, int vm) {
 	}
 	else
 		cout << "|" << std::left << std::setw(20) << (temp.rezult/(temp.ndskc))*0.4+temp.egz*0.6<< std::endl;
+}
+void fisvestis(std::vector <zmogus> temp, int vm) {
+	std::stringstream rasbufferis;
+	if (vm == 1) {
+		for (int i = 0; i < temp.size(); i++) {
+			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
+				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << temp[i].median * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		}
+	}
+	else {
+		for (int i = 0; i < temp.size(); i++) {
+			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
+				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << (temp[i].rezult / (temp[i].ndskc)) * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		}
+	}
+	cout << rasbufferis.str();
+	rasbufferis.clear();
 }
