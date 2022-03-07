@@ -232,16 +232,19 @@ void isvestis(zmogus& temp, int vm) {
 }
 void fisvestis(std::vector <zmogus> temp, int vm) {
 	std::ofstream open_f("output.txt");
-	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)|";
-	open_f << std::endl << "----------------------------------------------------------------" << std::endl;
+	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|";
 	std::stringstream rasbufferis;
 	if (vm == 1) {
+		open_f << std::left << std::setw(20) << "Galutinis (med.)"<<"|";
+		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
 		for (int i = 0; i < temp.size(); i++) {
 			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
 				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << temp[i].median * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
 		}
 	}
 	else {
+		open_f << std::left << std::setw(20) << "Galutinis (vid.)" << "|";
+		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
 		for (int i = 0; i < temp.size(); i++) {
 			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
 				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << (temp[i].rezult / (temp[i].ndskc)) * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
