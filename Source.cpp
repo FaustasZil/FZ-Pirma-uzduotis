@@ -19,6 +19,7 @@ struct zmogus {
 void ivestis(zmogus& temp);
 void isvestis(zmogus& temp, int vm);
 void fisvestis(std::vector <zmogus> temp, int vm);
+bool sortf(zmogus pirmas, zmogus antras);
 int main() {
 	string laikinas = "";
 	int M, N;
@@ -41,8 +42,6 @@ int main() {
 		}
 	}
 	if (N == 1) {
-		//std::vector<string> eilutes;
-		//string eil = "";
 		std::stringstream bufferis;
 		std::ifstream open_f("kursiokai.txt");
 		bufferis << open_f.rdbuf();
@@ -61,8 +60,6 @@ int main() {
 		while (bufferis) {
 			if (!bufferis.eof()) {
 				amas.push_back(ztemp);
-				//std::getline(bufferis, eil);
-				//eilutes.push_back(eil);
 				bufferis >> amas[amas.size() - 1].vardas;
 				bufferis >> amas[amas.size() - 1].pavarde;
 				for (int i = 0; i < ndskcc.size(); i++) {
@@ -81,13 +78,6 @@ int main() {
 			}
 			else break;
 		}
-		//amas.resize(eilutes.size());
-		//std::vector<string> ndskc;
-		//for (int i = 0; i < eilutes.size(); i++) {
-		//	bufferis >> amas[i].vardas;
-		//	bufferis >> amas[i].pavarde;
-		//
-		//}
 	}
 	else {
 		while (true) {
@@ -121,12 +111,13 @@ int main() {
 			cout << "Ivestas ne tas pasirinkimas" << std::endl;
 		}
 	}
-	cout << std::endl<< "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)";
-	cout << std::endl << "---------------------------------------------------" << std::endl;
+	std::sort(amas.begin(), amas.end(), sortf);
 	if (N == 1) {
 		fisvestis(amas, vm);
 	}
 	else {
+		cout << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)";
+		cout << std::endl << "---------------------------------------------------" << std::endl;
 		for (int i = 0; i < M; i++) {
 			isvestis(amas[i], vm);
 		}
@@ -240,6 +231,9 @@ void isvestis(zmogus& temp, int vm) {
 		cout << "|" << std::left << std::setw(20) << (temp.rezult/(temp.ndskc))*0.4+temp.egz*0.6<< std::endl;
 }
 void fisvestis(std::vector <zmogus> temp, int vm) {
+	std::ofstream open_f("output.txt");
+	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Galutinis (vid.)/Galutinis (med.)|";
+	open_f << std::endl << "----------------------------------------------------------------" << std::endl;
 	std::stringstream rasbufferis;
 	if (vm == 1) {
 		for (int i = 0; i < temp.size(); i++) {
@@ -253,6 +247,11 @@ void fisvestis(std::vector <zmogus> temp, int vm) {
 				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << (temp[i].rezult / (temp[i].ndskc)) * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
 		}
 	}
-	cout << rasbufferis.str();
+	open_f << rasbufferis.str();
 	rasbufferis.clear();
+	open_f.close();
+}
+bool sortf(zmogus pirmas, zmogus antras) {
+	if (pirmas.vardas != antras.vardas)
+		return pirmas.vardas < antras.vardas;
 }
