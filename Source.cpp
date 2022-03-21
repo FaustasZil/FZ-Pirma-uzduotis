@@ -9,6 +9,7 @@ int main() {
 	int vm;
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
+	fgeneravimas(5, 10000);
 	while (true) {
 		cout << "Ar norite pazymius ivesti is failo?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
@@ -28,8 +29,12 @@ int main() {
 		std::stringstream bufferis;
 		try {
 			std::ifstream open_f("kursiokai.txt");
-			bufferis << open_f.rdbuf();
-			open_f.close();
+			if (open_f) {
+				bufferis << open_f.rdbuf();
+				open_f.close();
+			}
+			else
+				throw 404;
 		}
 		catch (...) {
 			cout << "Pasirinkto duomenu failo nera. Programa uzbaigta";

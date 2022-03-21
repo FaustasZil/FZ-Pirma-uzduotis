@@ -136,3 +136,22 @@ bool sortf(zmogus pirmas, zmogus antras) {
 	if (pirmas.vardas != antras.vardas)
 		return pirmas.vardas < antras.vardas;
 }
+void fgeneravimas(int ndskc, int dydis) {
+	std::ofstream open_f("sugeneruotas.txt");
+	std::random_device rd;
+	std::mt19937 mt(rd());
+	std::uniform_int_distribution<int> dist(1, 10);
+	open_f << "Vardas " << "Pavarde ";
+	for (int i = 1; i < ndskc+1; i++) {
+		open_f << "ND" << i << " ";
+	}
+	open_f << "Egz."<<std::endl;
+	for (int i = 1; i < dydis+1; i++) {
+		open_f << "Vardas" << i << " Pavarde" << i << " ";
+		for (int y = 0; y < ndskc+1; y++) {
+			open_f << dist(mt) << " ";
+		}
+		open_f << std::endl;
+	}
+	open_f.close();
+}

@@ -18,3 +18,4 @@ void ivestis(zmogus& temp);
 void isvestis(zmogus& temp, int vm);
 void fisvestis(std::vector <zmogus> temp, int vm);
 bool sortf(zmogus pirmas, zmogus antras);
+void fgeneravimas(int ndskc, int dydis);
