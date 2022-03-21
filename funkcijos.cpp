@@ -137,7 +137,8 @@ bool sortf(zmogus pirmas, zmogus antras) {
 		return pirmas.vardas < antras.vardas;
 }
 void fgeneravimas(int ndskc, int dydis) {
-	std::ofstream open_f("sugeneruotas.txt");
+	string pav = std::to_string(dydis) + ".txt";
+	std::ofstream open_f(pav);
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_int_distribution<int> dist(1, 10);
@@ -154,4 +155,53 @@ void fgeneravimas(int ndskc, int dydis) {
 		open_f << std::endl;
 	}
 	open_f.close();
+}
+void apskaiciavimas(std::vector <zmogus> amas, std::vector <zmogus> ndskcc, int dydis) {
+	std::stringstream bufferis;
+	string sdydis = std::to_string(dydis) + ".txt";
+	try {
+		std::ifstream open_f(sdydis);
+		if (open_f) {
+			bufferis << open_f.rdbuf();
+			open_f.close();
+		}
+		else
+			throw 404;
+	}
+	catch (...) {
+		cout << "Pasirinkto duomenu failo nera. Programa uzbaigta";
+		return;
+	}
+	string temp;
+	zmogus ztemp;
+	int itemp;
+	bufferis >> temp;
+	bufferis >> temp;
+	while (true) {
+		bufferis >> temp;
+		if (temp == "Egz.")
+			break;
+		ndskcc.push_back(temp);
+	}
+	while (bufferis) {
+		if (!bufferis.eof()) {
+			amas.push_back(ztemp);
+			bufferis >> amas[amas.size() - 1].vardas;
+			bufferis >> amas[amas.size() - 1].pavarde;
+			for (int i = 0; i < ndskcc.size(); i++) {
+				bufferis >> itemp;
+				amas[amas.size() - 1].vpaz.push_back(itemp);
+				amas[amas.size() - 1].rezult += itemp;
+			}
+			bufferis >> amas[amas.size() - 1].egz;
+			amas[amas.size() - 1].ndskc = ndskcc.size();
+
+			std::sort(amas[amas.size() - 1].vpaz.begin(), amas[amas.size() - 1].vpaz.end());
+			if (ndskcc.size() % 2 != 0)
+				amas[amas.size() - 1].median = amas[amas.size() - 1].vpaz[(ndskcc.size() / 2)];
+			else
+				amas[amas.size() - 1].median = (amas[amas.size() - 1].vpaz[(ndskcc.size() / 2) - 1] + amas[amas.size() - 1].vpaz[ndskcc.size() / 2]) / 2.0;
+		}
+		else break;
+	}
 }

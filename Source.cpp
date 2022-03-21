@@ -10,6 +10,12 @@ int main() {
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
 	fgeneravimas(5, 10000);
+	//ar pravaryti pagal v0.5?
+	apskaiciavimas(amas, ndskcc, 10000);
+	std::vector<zmogus> nelaimingi;
+	//padalinimas(amas, nelaimingi);
+	//fisvestis(amas, vm);
+	//fisvestis(nelaimingi, vm);
 	while (true) {
 		cout << "Ar norite pazymius ivesti is failo?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
