@@ -6,16 +6,79 @@ using std::string;
 int main() {
 	string laikinas = "";
 	int M, N;
-	int vm;
+	int vm =1;
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
-	fgeneravimas(5, 10000);
-	//ar pravaryti pagal v0.5?
-	apskaiciavimas(amas, ndskcc, 10000);
-	std::vector<zmogus> nelaimingi;
-	//padalinimas(amas, nelaimingi);
-	//fisvestis(amas, vm);
-	//fisvestis(nelaimingi, vm);
+	std::vector<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000};
+	while (true) {
+		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
+		std::getline(cin, laikinas);
+		try {
+			N = stoi(laikinas);
+			if (N != 0 && N != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
+			break;
+		}
+		catch (...) {
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
+		}
+	}
+	if (N==1) {
+		for (auto i : dydziai) {
+			cout << "Generuojama " << i << std::endl;
+			fgeneravimas(5, i);
+		}	
+	}
+	while (true) {
+		cout << "Ar norite praeiti situos failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
+		std::getline(cin, laikinas);
+		try {
+			N = stoi(laikinas);
+			if (N != 0 && N != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
+			break;
+		}
+		catch (...) {
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
+		}
+	}
+	while (true) {
+		cout << "Galutini pazymi skaiciuoti pagal vidurki(0) ar pagal mediana(1): ";
+		std::getline(cin, laikinas);
+		try {
+			vm = stoi(laikinas);
+			if (vm != 0 && vm != 1) {
+				cout << "Ivestas ne tas pasirinkimas" << std::endl;
+				continue;
+			}
+			break;
+		}
+		catch (...) {
+			cout << "Ivestas ne tas pasirinkimas" << std::endl;
+		}
+	}
+	if (N == 1) {
+		std::vector<zmogus> nelaimingi;
+		for (auto i : dydziai) {
+			cout << "Skaiciuojama " << i << std::endl;
+			nelaimingi.clear();
+			amas.clear();
+			ndskcc.clear();
+			apskaiciavimas(amas, ndskcc, i);
+			nelaimingi = padalinimas(amas, vm);
+			cout << amas.size() << " " << nelaimingi.size() << std::endl;
+			std::sort(amas.begin(), amas.end(), sortf);
+			std::sort(nelaimingi.begin(), nelaimingi.end(), sortf);
+			fisvestis(amas, vm, "laimingi.txt");
+			fisvestis(nelaimingi, vm, "nelaimingi.txt");
+			system("pause");
+		}
+		return 0;
+	}
 	while (true) {
 		cout << "Ar norite pazymius ivesti is failo?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
@@ -31,53 +94,9 @@ int main() {
 			cout << "Ivestas ne tas pasirinkimas" << std::endl;
 		}
 	}
+	//kuri faila pravesti
 	if (N == 1) {
-		std::stringstream bufferis;
-		try {
-			std::ifstream open_f("kursiokai.txt");
-			if (open_f) {
-				bufferis << open_f.rdbuf();
-				open_f.close();
-			}
-			else
-				throw 404;
-		}
-		catch (...) {
-			cout << "Pasirinkto duomenu failo nera. Programa uzbaigta";
-			return 0;
-		}
-		string temp;
-		zmogus ztemp;
-		int itemp;
-		bufferis >> temp;
-		bufferis >> temp;
-		while (true) {
-			bufferis >> temp;
-			if (temp == "Egz.") 
-				break;
-			ndskcc.push_back(temp);
-		}
-		while (bufferis) {
-			if (!bufferis.eof()) {
-				amas.push_back(ztemp);
-				bufferis >> amas[amas.size() - 1].vardas;
-				bufferis >> amas[amas.size() - 1].pavarde;
-				for (int i = 0; i < ndskcc.size(); i++) {
-					bufferis >> itemp;
-					amas[amas.size() - 1].vpaz.push_back(itemp);
-					amas[amas.size() - 1].rezult += itemp;
-				}
-				bufferis >> amas[amas.size() - 1].egz;
-				amas[amas.size() - 1].ndskc = ndskcc.size();
-
-				std::sort(amas[amas.size() - 1].vpaz.begin(), amas[amas.size() - 1].vpaz.end());
-				if (ndskcc.size() % 2 != 0)
-					amas[amas.size() - 1].median = amas[amas.size() - 1].vpaz[(ndskcc.size() / 2)];
-				else
-					amas[amas.size() - 1].median = (amas[amas.size() - 1].vpaz[(ndskcc.size() / 2) - 1] + amas[amas.size() - 1].vpaz[ndskcc.size() / 2]) / 2.0;
-			}
-			else break;
-		}
+		apskaiciavimas(amas, ndskcc, dydziai[0]);
 	}
 	else {
 		while (true) {
@@ -96,24 +115,10 @@ int main() {
 			ivestis(amas[i]);
 		}
 	}
-	while (true) {
-		cout << "Galutini pazymi skaiciuoti pagal vidurki(0) ar pagal mediana(1): ";
-		std::getline(cin, laikinas);
-		try {
-			vm = stoi(laikinas);
-			if (vm != 0 && vm != 1) {
-				cout << "Ivestas ne tas pasirinkimas" << std::endl;
-				continue;
-			}
-			break;
-		}
-		catch (...) {
-			cout << "Ivestas ne tas pasirinkimas" << std::endl;
-		}
-	}
 	std::sort(amas.begin(), amas.end(), sortf);
+	string output = "output.txt";
 	if (N == 1) {
-		fisvestis(amas, vm);
+		fisvestis(amas, vm, output);
 	}
 	else {
 		if (vm == 1) {

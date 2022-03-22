@@ -108,8 +108,8 @@ void isvestis(zmogus& temp, int vm) {
 	else
 		cout << "|" << std::left << std::setw(20) << (temp.rezult / (temp.ndskc)) * 0.4 + temp.egz * 0.6 << "|" << std::endl;
 }
-void fisvestis(std::vector <zmogus> temp, int vm) {
-	std::ofstream open_f("output.txt");
+void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
+	std::ofstream open_f(vardas);
 	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|";
 	std::stringstream rasbufferis;
 	if (vm == 1) {
@@ -156,7 +156,7 @@ void fgeneravimas(int ndskc, int dydis) {
 	}
 	open_f.close();
 }
-void apskaiciavimas(std::vector <zmogus> amas, std::vector <zmogus> ndskcc, int dydis) {
+void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, int dydis) {
 	std::stringstream bufferis;
 	string sdydis = std::to_string(dydis) + ".txt";
 	try {
@@ -204,4 +204,27 @@ void apskaiciavimas(std::vector <zmogus> amas, std::vector <zmogus> ndskcc, int 
 		}
 		else break;
 	}
+}
+
+std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit) {
+	std::vector<zmogus> temp;
+	std::vector<zmogus> nelaimingi;
+	if (krit == 0) {
+		for (int i = 0; i < amas.size(); i++) {
+			if ((amas[i].rezult / (amas[i].ndskc)) * 0.4 + amas[i].egz * 0.6 < 5.0)
+				nelaimingi.push_back(amas[i]);
+			else
+				temp.push_back(amas[i]);
+		}
+	}
+	else {
+		for (int i = 0; i < amas.size(); i++) {
+			if (amas[i].median * 0.4 + amas[i].egz * 0.6 < 5.0)
+				nelaimingi.push_back(amas[i]);
+			else
+				temp.push_back(amas[i]);
+		}
+	}
+	amas = temp;
+	return nelaimingi;
 }
