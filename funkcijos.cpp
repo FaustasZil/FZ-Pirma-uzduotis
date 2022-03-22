@@ -109,6 +109,7 @@ void isvestis(zmogus& temp, int vm) {
 		cout << "|" << std::left << std::setw(20) << (temp.rezult / (temp.ndskc)) * 0.4 + temp.egz * 0.6 << "|" << std::endl;
 }
 void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
+	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::ofstream open_f(vardas);
 	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|";
 	std::stringstream rasbufferis;
@@ -131,12 +132,17 @@ void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
 	open_f << rasbufferis.str();
 	rasbufferis.clear();
 	open_f.close();
+	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+	vardas.resize(vardas.size()-5);
+	vardas += "us";
+	cout << "Uzrasyt "<<vardas<<" i faila uztruko " << diff.count() << "s" << std::endl;
 }
 bool sortf(zmogus pirmas, zmogus antras) {
 	if (pirmas.vardas != antras.vardas)
 		return pirmas.vardas < antras.vardas;
 }
 void fgeneravimas(int ndskc, int dydis) {
+	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	string pav = std::to_string(dydis) + ".txt";
 	std::ofstream open_f(pav);
 	std::random_device rd;
@@ -155,8 +161,13 @@ void fgeneravimas(int ndskc, int dydis) {
 		open_f << std::endl;
 	}
 	open_f.close();
+	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+	cout<< "Uztruko " << diff.count() << "s"<<std::endl;
+	//baigt skaiciuot
 }
 void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, int dydis) {
+	//pradet skaiciuot
+	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::stringstream bufferis;
 	string sdydis = std::to_string(dydis) + ".txt";
 	try {
@@ -204,9 +215,14 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 		}
 		else break;
 	}
+	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+	cout << "Nuskaityt uztruko " << diff.count() << "s" << std::endl;
+	//baigt skaiciuot
 }
 
 std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit) {
+	//pradet skaiciuot
+	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::vector<zmogus> temp;
 	std::vector<zmogus> nelaimingi;
 	if (krit == 0) {
@@ -226,5 +242,8 @@ std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit) {
 		}
 	}
 	amas = temp;
+	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+	cout << "Padalint uztruko " << diff.count() << "s" << std::endl;
 	return nelaimingi;
+	//baigt skaiciuot
 }

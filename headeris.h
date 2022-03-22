@@ -7,6 +7,7 @@
 #include <random>
 #include <fstream>
 #include <sstream>
+#include <chrono>
 struct zmogus {
 	std::string vardas = "", pavarde = "";
 	int egz = 0, ndskc = 0;

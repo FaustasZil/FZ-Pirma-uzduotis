@@ -4,12 +4,14 @@ using std::cin;
 using std::string;
 
 int main() {
+	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
+	//pradet skaiciuot
 	string laikinas = "";
 	int M, N;
 	int vm =1;
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
-	std::vector<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000};
+	std::vector<int> dydziai = {1000, 10000, 100000, 1000000, 4500000};
 	while (true) {
 		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
@@ -68,15 +70,21 @@ int main() {
 			nelaimingi.clear();
 			amas.clear();
 			ndskcc.clear();
+			//amas.reserve(10000000);
+			//nelaimingi.reserve(10000000);
 			apskaiciavimas(amas, ndskcc, i);
 			nelaimingi = padalinimas(amas, vm);
-			cout << amas.size() << " " << nelaimingi.size() << std::endl;
 			std::sort(amas.begin(), amas.end(), sortf);
 			std::sort(nelaimingi.begin(), nelaimingi.end(), sortf);
+			//pradet skaiciuot
 			fisvestis(amas, vm, "laimingi.txt");
 			fisvestis(nelaimingi, vm, "nelaimingi.txt");
+			//baigt skaiciuot
+			//baigt skaiciuot
 			system("pause");
 		}
+		std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+		cout << "Programa uztruko " << diff.count() << "s" << std::endl;
 		return 0;
 	}
 	while (true) {
