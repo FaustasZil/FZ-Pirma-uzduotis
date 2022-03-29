@@ -11,3 +11,17 @@ Fausto Žiliajevo githubas
 2022-03-07: v0.3 su failu handlinimu  
 2022-03-20: v0.4 pradine versija  
 2022-03-22: Failu dalinimo bei uztrukto laiko pataisymas (v0.4.1)  
+2022-03-29: v0.5 list ir deque versijos  
+
+skaiciavimai imti pagal mediana  
+
+vector nuskaitymas(1m, 10m): 2,35s, 23,87s  
+       dalinimas(1m, 10m): 0,21s, 2,48s  
+list   nuskaitymas(1m, 10m): 2,41s, 23,95s  
+       dalinimas(1m, 10m): 0,35s, 3,49s  
+deque  nuskaitymas(1m, 10m): 2,41s, 23,83s  
+       dalinimas(1m, 10m): 0,29s, 2,98s  
+       
+CPU Intel Core i7-8700 3.2GHz  
+RAM 16GB DD4 
+SSD KINGSTON SA400S37240G  
