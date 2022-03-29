@@ -1,7 +1,0 @@
-
-|Vardas              |Pavarde             |Galutinis (vid.)/Galutinis (med.)|
-----------------------------------------------------------------
-|Antonas             |bb                  |4                   |
-|Balys               |dsd                 |4                   |
-|Dalys               |bd                  |4                   |
-|Vladas              |hg                  |4                   |
