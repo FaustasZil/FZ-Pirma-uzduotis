@@ -27,3 +27,4 @@ deque  nuskaitymas(1m, 10m): 2,41s, 23,83s
 CPU Intel Core i7-8700 3.2GHz  
 RAM 16GB DD4 
 SSD KINGSTON SA400S37240G  
+
