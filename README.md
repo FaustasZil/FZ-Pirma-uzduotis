@@ -1,5 +1,6 @@
 # FZ-Pirma-uzduotis
 Fausto Žiliajevo githubas
+https://github.com/FaustasZil/FZ-Pirma-uzduotis/tree/v0.5-list  
 
 2022-02-20: Įkelta pradinė v0.1 versija  
 2022-02-21: Pridetas pasirinkimas tarp medianos ir vidurkio, nd duomenys saugomi vektoriuje  
