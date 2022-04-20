@@ -82,7 +82,7 @@ int main() {
 			laikotemp = diff.count();
 
 			amas.sort(sortf);
-			amas.sort(sortf);
+			nelaimingi.sort(sortf);
 			diff = std::chrono::high_resolution_clock::now() - start;
 			cout << "Rusiavimas uztruko " << diff.count() - laikotemp << "s" << std::endl;
 			laikotemp = diff.count();

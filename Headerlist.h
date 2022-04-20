@@ -22,4 +22,5 @@ void fisvestis(std::list <zmogus> temp, int vm, std::string vardas);
 bool sortf(zmogus pirmas, zmogus antras);
 void fgeneravimas(int ndskc, int dydis);
 void apskaiciavimas(std::list <zmogus>& amas, std::list <std::string>& ndskcc, int dydis);
-std::list<zmogus> padalinimas(std::list <zmogus> & amas, int krit);
+std::list<zmogus> padalinimas(std::list <zmogus>& amas, int krit);
+
