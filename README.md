@@ -12,7 +12,7 @@ https://github.com/FaustasZil/FZ-Pirma-uzduotis/tree/v0.5-list
 2022-03-07: v0.3 su failu handlinimu  
 2022-03-20: v0.4 pradine versija  
 2022-03-22: Failu dalinimo bei uztrukto laiko pataisymas (v0.4.1)  
-2022-03-29: v0.5 list ir deque versijos 
+2022-03-29: v0.5 list ir deque versijos  
 2022-04-18: Aptvarkyti for loopai vektoriu ir deque versijom  
 2022-04-19: v1.0 versija su abiem strategijom  
   
