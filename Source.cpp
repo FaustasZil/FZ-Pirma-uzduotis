@@ -4,14 +4,13 @@ using std::cin;
 using std::string;
 
 int main() {
-	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	//pradet skaiciuot
 	string laikinas = "";
 	int M, N;
 	int vm =1;
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
-	std::vector<int> dydziai = {1000, 10000, 100000, 1000000, 4500000};
+	std::vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
 	while (true) {
 		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
@@ -66,25 +65,42 @@ int main() {
 	if (N == 1) {
 		std::vector<zmogus> nelaimingi;
 		for (auto i : dydziai) {
+			auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 			cout << "Skaiciuojama " << i << std::endl;
 			nelaimingi.clear();
 			amas.clear();
 			ndskcc.clear();
-			//amas.reserve(10000000);
-			//nelaimingi.reserve(10000000);
+
 			apskaiciavimas(amas, ndskcc, i);
+			std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Nuskaitymas uztruko " << diff.count() << "s" << std::endl;
+			double laikotemp = diff.count();
+
 			nelaimingi = padalinimas(amas, vm);
+			diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Padalinimas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			laikotemp = diff.count();
+
 			std::sort(amas.begin(), amas.end(), sortf);
 			std::sort(nelaimingi.begin(), nelaimingi.end(), sortf);
-			//pradet skaiciuot
+			diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Rusiavimas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			laikotemp = diff.count();
+
 			fisvestis(amas, vm, "laimingi.txt");
+			diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Laimingu rasymas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			laikotemp = diff.count();
+
 			fisvestis(nelaimingi, vm, "nelaimingi.txt");
-			//baigt skaiciuot
-			//baigt skaiciuot
+			diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Nelaimingu rasymas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			laikotemp = diff.count();
+
+			diff = std::chrono::high_resolution_clock::now() - start;
+			cout << "Programa uztruko " << diff.count() << "s" << std::endl;
 			system("pause");
 		}
-		std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-		cout << "Programa uztruko " << diff.count() << "s" << std::endl;
 		return 0;
 	}
 	while (true) {

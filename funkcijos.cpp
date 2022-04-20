@@ -109,33 +109,28 @@ void isvestis(zmogus& temp, int vm) {
 		cout << "|" << std::left << std::setw(20) << (temp.rezult / (temp.ndskc)) * 0.4 + temp.egz * 0.6 << "|" << std::endl;
 }
 void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
-	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::ofstream open_f(vardas);
 	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|";
 	std::stringstream rasbufferis;
 	if (vm == 1) {
 		open_f << std::left << std::setw(20) << "Galutinis (med.)" << "|";
 		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
-		for (int i = 0; i < temp.size(); i++) {
-			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
-				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << temp[i].median * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		for (auto &i : temp) {
+			rasbufferis << "|" << std::left << std::setw(20) << i.vardas << "|" << std::left <<
+				std::setw(20) << i.pavarde << std::right << "|" << std::left << std::setw(20) << i.median * 0.4 + i.egz * 0.6 << "|" << std::endl;
 		}
 	}
 	else {
 		open_f << std::left << std::setw(20) << "Galutinis (vid.)" << "|";
 		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
-		for (int i = 0; i < temp.size(); i++) {
-			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
-				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << (temp[i].rezult / (temp[i].ndskc)) * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		for (auto &i : temp) {
+			rasbufferis << "|" << std::left << std::setw(20) << i.vardas << "|" << std::left <<
+				std::setw(20) << i.pavarde << std::right << "|" << std::left << std::setw(20) << (i.rezult / (i.ndskc)) * 0.4 + i.egz * 0.6 << "|" << std::endl;
 		}
 	}
 	open_f << rasbufferis.str();
 	rasbufferis.clear();
 	open_f.close();
-	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-	vardas.resize(vardas.size()-5);
-	vardas += "us";
-	cout << "Uzrasyt "<<vardas<<" i faila uztruko " << diff.count() << "s" << std::endl;
 }
 bool sortf(zmogus pirmas, zmogus antras) {
 	if (pirmas.vardas != antras.vardas)
@@ -167,7 +162,6 @@ void fgeneravimas(int ndskc, int dydis) {
 }
 void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, int dydis) {
 	//pradet skaiciuot
-	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::stringstream bufferis;
 	string sdydis = std::to_string(dydis) + ".txt";
 	try {
@@ -199,7 +193,7 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 			amas.push_back(ztemp);
 			bufferis >> amas[amas.size() - 1].vardas;
 			bufferis >> amas[amas.size() - 1].pavarde;
-			for (int i = 0; i < ndskcc.size(); i++) {
+			for (auto &i : ndskcc) {
 				bufferis >> itemp;
 				amas[amas.size() - 1].vpaz.push_back(itemp);
 				amas[amas.size() - 1].rezult += itemp;
@@ -215,35 +209,33 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 		}
 		else break;
 	}
-	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-	cout << "Nuskaityt uztruko " << diff.count() << "s" << std::endl;
+	amas.pop_back();
+	bufferis.str("");
 	//baigt skaiciuot
 }
 
 std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit) {
 	//pradet skaiciuot
-	auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 	std::vector<zmogus> temp;
 	std::vector<zmogus> nelaimingi;
 	if (krit == 0) {
-		for (int i = 0; i < amas.size(); i++) {
-			if ((amas[i].rezult / (amas[i].ndskc)) * 0.4 + amas[i].egz * 0.6 < 5.0)
-				nelaimingi.push_back(amas[i]);
+		for (auto i : amas) {
+			if ((i.rezult / (i.ndskc)) * 0.4 + i.egz * 0.6 < 5.0)
+				nelaimingi.push_back(i);
 			else
-				temp.push_back(amas[i]);
+				temp.push_back(i);
 		}
 	}
 	else {
-		for (int i = 0; i < amas.size(); i++) {
-			if (amas[i].median * 0.4 + amas[i].egz * 0.6 < 5.0)
-				nelaimingi.push_back(amas[i]);
+		for (auto i : amas) {
+			if (i.median * 0.4 + i.egz * 0.6 < 5.0)
+				nelaimingi.push_back(i);
 			else
-				temp.push_back(amas[i]);
+				temp.push_back(i);
 		}
 	}
 	amas = temp;
-	std::chrono::duration<double> diff = std::chrono::high_resolution_clock::now() - start;
-	cout << "Padalint uztruko " << diff.count() << "s" << std::endl;
+	temp.clear();
 	return nelaimingi;
 	//baigt skaiciuot
 }
