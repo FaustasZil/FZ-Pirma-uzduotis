@@ -16,6 +16,10 @@ https://github.com/FaustasZil/FZ-Pirma-uzduotis/tree/v0.5-list
 2022-04-18: Aptvarkyti for loopai vektoriu ir deque versijom  
 2022-04-19: v1.0 versija su abiem strategijom  
   
+Naudojimo instrukcijos:  
+1. Atsidarius terminala root folderije, ivesti "make", spausti Enter  
+2. Susikompiliavus programai, paleisti .exe faila  
+  
 skaiciavimai imti pagal mediana  
   
 v1.0 Pirma strategija:
