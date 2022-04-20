@@ -20,7 +20,7 @@ skaiciavimai imti pagal mediana
 
 v1.0 Pirma strategija:
 vector nuskaitymas(1m, 10m): 2,56s, 24,35s  
-       dalinimas(1m, 10m): 0,19s, 1,99s  
+         dalinimas(1m, 10m): 0,19s, 1,99s  
        rusiavimas(1m, 10m): 3,82s, 50,32s  
        laimingu rasymas(1m, 10m): 0,76s, 8,35s  
        nelaimingu rasymas(1m, 10m): 0,53s, 5,84s  
