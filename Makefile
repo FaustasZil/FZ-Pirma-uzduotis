@@ -1,11 +1,11 @@
-run: Source.o funkcijos.o
- g++ Source.cpp funkcijos.cpp -o
+run: Sourcelist.o funkcijoslist.o
+ g++ Sourcelist.cpp funkcijoslist.cpp -o
 run
 
-funkcijos.o: funkcijos.cpp
- g++ -c funkcijos.cpp
+funkcijos.o: funkcijoslist.cpp
+ g++ -c funkcijoslist.cpp
 
-Source.o: Source.cpp
- g++ -c Source.cpp
+Source.o: Sourcelist.cpp
+ g++ -c Sourcelist.cpp
 
 clean: rm *.o run
