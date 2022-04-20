@@ -10,7 +10,7 @@ int main() {
 	int vm = 1;
 	std::deque<string> ndskcc;
 	std::deque<zmogus> amas;
-	std::deque<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000 };
+	std::deque<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000};
 	while (true) {
 		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);

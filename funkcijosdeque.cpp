@@ -115,17 +115,17 @@ void fisvestis(std::deque <zmogus> temp, int vm, string vardas) {
 	if (vm == 1) {
 		open_f << std::left << std::setw(20) << "Galutinis (med.)" << "|";
 		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
-		for (int i = 0; i < temp.size(); i++) {
-			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
-				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << temp[i].median * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		for (auto &i : temp) {
+			rasbufferis << "|" << std::left << std::setw(20) << i.vardas << "|" << std::left <<
+				std::setw(20) << i.pavarde << std::right << "|" << std::left << std::setw(20) << i.median * 0.4 + i.egz * 0.6 << "|" << std::endl;
 		}
 	}
 	else {
 		open_f << std::left << std::setw(20) << "Galutinis (vid.)" << "|";
 		open_f << std::endl << "----------------------------------------------------------------" << std::endl;
-		for (int i = 0; i < temp.size(); i++) {
-			rasbufferis << "|" << std::left << std::setw(20) << temp[i].vardas << "|" << std::left <<
-				std::setw(20) << temp[i].pavarde << std::right << "|" << std::left << std::setw(20) << (temp[i].rezult / (temp[i].ndskc)) * 0.4 + temp[i].egz * 0.6 << "|" << std::endl;
+		for (auto &i : temp) {
+			rasbufferis << "|" << std::left << std::setw(20) << i.vardas << "|" << std::left <<
+				std::setw(20) << i.pavarde << std::right << "|" << std::left << std::setw(20) << (i.rezult / (i.ndskc)) * 0.4 + i.egz * 0.6 << "|" << std::endl;
 		}
 	}
 	open_f << rasbufferis.str();
@@ -193,7 +193,7 @@ void apskaiciavimas(std::deque <zmogus>& amas, std::deque <string>& ndskcc, int 
 			amas.push_back(ztemp);
 			bufferis >> amas[amas.size() - 1].vardas;
 			bufferis >> amas[amas.size() - 1].pavarde;
-			for (int i = 0; i < ndskcc.size(); i++) {
+			for (auto &i : ndskcc) {
 				bufferis >> itemp;
 				amas[amas.size() - 1].vpaz.push_back(itemp);
 				amas[amas.size() - 1].rezult += itemp;
@@ -219,19 +219,19 @@ std::deque<zmogus> padalinimas(std::deque <zmogus>& amas, int krit) {
 	std::deque<zmogus> temp;
 	std::deque<zmogus> nelaimingi;
 	if (krit == 0) {
-		for (int i = 0; i < amas.size(); i++) {
-			if ((amas[i].rezult / (amas[i].ndskc)) * 0.4 + amas[i].egz * 0.6 < 5.0)
-				nelaimingi.push_back(amas[i]);
+		for (auto &i : amas) {
+			if ((i.rezult / (i.ndskc)) * 0.4 + i.egz * 0.6 < 5.0)
+				nelaimingi.push_back(i);
 			else
-				temp.push_back(amas[i]);
+				temp.push_back(i);
 		}
 	}
 	else {
-		for (int i = 0; i < amas.size(); i++) {
-			if (amas[i].median * 0.4 + amas[i].egz * 0.6 < 5.0)
-				nelaimingi.push_back(amas[i]);
+		for (auto &i : amas) {
+			if (i.median * 0.4 + i.egz * 0.6 < 5.0)
+				nelaimingi.push_back(i);
 			else
-				temp.push_back(amas[i]);
+				temp.push_back(i);
 		}
 	}
 	amas = temp;
