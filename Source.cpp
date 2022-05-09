@@ -1,4 +1,4 @@
-#include "headeris.h"
+#include "zmogus.h"
 using std::cout;
 using std::cin;
 using std::string;
@@ -7,10 +7,10 @@ int main() {
 	//pradet skaiciuot
 	string laikinas = "";
 	int M, N;
-	int vm =1;
+	int vm = 1;
 	std::vector<string> ndskcc;
 	std::vector<zmogus> amas;
-	std::vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+	std::vector<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000 };
 	while (true) {
 		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
 		std::getline(cin, laikinas);
@@ -26,11 +26,11 @@ int main() {
 			cout << "Ivestas ne tas pasirinkimas" << std::endl;
 		}
 	}
-	if (N==1) {
+	if (N == 1) {
 		for (auto i : dydziai) {
 			cout << "Generuojama " << i << std::endl;
 			fgeneravimas(5, i);
-		}	
+		}
 	}
 	while (true) {
 		cout << "Ar norite praeiti situos failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
@@ -78,23 +78,23 @@ int main() {
 
 			nelaimingi = padalinimas(amas, vm);
 			diff = std::chrono::high_resolution_clock::now() - start;
-			cout << "Padalinimas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			cout << "Padalinimas uztruko " << diff.count() - laikotemp << "s" << std::endl;
 			laikotemp = diff.count();
 
 			std::sort(amas.begin(), amas.end(), sortf);
 			std::sort(nelaimingi.begin(), nelaimingi.end(), sortf);
 			diff = std::chrono::high_resolution_clock::now() - start;
-			cout << "Rusiavimas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			cout << "Rusiavimas uztruko " << diff.count() - laikotemp << "s" << std::endl;
 			laikotemp = diff.count();
 
 			fisvestis(amas, vm, "laimingi.txt");
 			diff = std::chrono::high_resolution_clock::now() - start;
-			cout << "Laimingu rasymas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			cout << "Laimingu rasymas uztruko " << diff.count() - laikotemp << "s" << std::endl;
 			laikotemp = diff.count();
 
 			fisvestis(nelaimingi, vm, "nelaimingi.txt");
 			diff = std::chrono::high_resolution_clock::now() - start;
-			cout << "Nelaimingu rasymas uztruko " << diff.count()-laikotemp << "s" << std::endl;
+			cout << "Nelaimingu rasymas uztruko " << diff.count() - laikotemp << "s" << std::endl;
 			laikotemp = diff.count();
 
 			diff = std::chrono::high_resolution_clock::now() - start;
@@ -123,6 +123,8 @@ int main() {
 		apskaiciavimas(amas, ndskcc, dydziai[0]);
 	}
 	else {
+		return 0;
+		/*
 		while (true) {
 			cout << "Iveskite zmoniu kieki: ";
 			try {
@@ -138,6 +140,7 @@ int main() {
 		for (int i = 0; i < M; i++) {
 			ivestis(amas[i]);
 		}
+		*/
 	}
 	std::sort(amas.begin(), amas.end(), sortf);
 	string output = "output.txt";
@@ -145,6 +148,8 @@ int main() {
 		fisvestis(amas, vm, output);
 	}
 	else {
+		return 0;
+		/*
 		if (vm == 1) {
 			cout << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|" << std::left << std::setw(20) << "Galutinis (med.)" << "|";
 			cout << std::endl << "----------------------------------------------------------------" << std::endl;
@@ -156,6 +161,7 @@ int main() {
 		for (int i = 0; i < M; i++) {
 			isvestis(amas[i], vm);
 		}
+		*/
 	}
 	system("pause");
 }
