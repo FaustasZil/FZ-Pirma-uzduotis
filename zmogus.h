@@ -25,6 +25,7 @@ public:
 	void skaiciuoti(std::stringstream& sstemp, int& ndskcc);
 	zmogus(const zmogus& z);
 	zmogus& operator=(const zmogus& z);
+	~zmogus() { vpaz_.clear(); }
 };
 //void ivestis(zmogus& temp);
 //void isvestis(zmogus& temp, int vm);
