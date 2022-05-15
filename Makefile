@@ -1,9 +1,9 @@
-run: Source.o funkcijos.o
- g++ Source.cpp funkcijos.cpp -o
+run: Source.o zmogus.o
+ g++ Source.cpp zmogus.cpp -o
 run
 
-funkcijos.o: funkcijos.cpp
- g++ -c funkcijos.cpp
+zmogus.o: zmogus.cpp
+ g++ -c zmogus.cpp
 
 Source.o: Source.cpp
  g++ -c Source.cpp
