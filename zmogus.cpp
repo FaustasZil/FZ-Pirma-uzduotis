@@ -111,7 +111,30 @@ void isvestis(zmogus& temp, int vm) {
 		cout << "|" << std::left << std::setw(20) << (temp.rezult / (temp.ndskc)) * 0.4 + temp.egz * 0.6 << "|" << std::endl;
 }
 */
-void zmogus::skaiciuoti(std::stringstream &sstemp, int &ndskcc) {
+zmogus::zmogus(const zmogus& z) : vardas_{ z.vardas_ }, pavarde_{ z.pavarde_ }, egz_{ z.egz_ }, vidurkis_{ z.vidurkis_ }, median_{ z.median_ } {
+	vpaz_.resize(z.vpaz_.size());
+	for (int i = 0; i < z.vpaz_.size(); i++)
+	{
+		vpaz_[i] = z.vpaz_[i];
+	}
+}
+zmogus& zmogus::operator=(const zmogus& z) {
+	if (&z == this) return *this;
+
+	std::vector<int> vek;
+	vek.resize(z.vpaz_.size());
+	for (int i = 0; i < z.vpaz_.size(); i++)
+	{
+		vek[i] = z.vpaz_[i];
+	}
+	vpaz_ = vek;
+	vardas_ = z.vardas_;
+	pavarde_ = z.pavarde_;
+	egz_ = z.egz_;
+	vidurkis_ = z.vidurkis_;
+	median_ = z.median_;
+}
+void zmogus::skaiciuoti(std::stringstream& sstemp, int& ndskcc) {
 	sstemp >> vardas_;
 	sstemp >> pavarde_;
 	int itemp;
@@ -184,7 +207,7 @@ void fgeneravimas(int ndskc, int dydis) {
 }
 void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, int dydis) {
 	//pradet skaiciuot
-	std::stringstream bufferis; 
+	std::stringstream bufferis;
 	std::stringstream sstemp;
 	string sdydis = std::to_string(dydis) + ".txt";
 	try {
@@ -217,7 +240,7 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 		if (!bufferis.eof()) {
 			std::getline(bufferis, temp);
 			bufferis.ignore(80, '\n');
-			sstemp.str (temp);
+			sstemp.str(temp);
 			amas.push_back(ztemp);
 			amas[amas.size() - 1].skaiciuoti(sstemp, itemp);
 		}

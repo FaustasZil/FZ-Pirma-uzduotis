@@ -22,7 +22,9 @@ public:
 	inline double vidurkis() const { return vidurkis_; }
 	inline double median() const { return median_; }
 	inline int egz() const { return egz_; }
-	void skaiciuoti(std::stringstream &sstemp, int &ndskcc);
+	void skaiciuoti(std::stringstream& sstemp, int& ndskcc);
+	zmogus(const zmogus& z);
+	zmogus& operator=(const zmogus& z);
 };
 //void ivestis(zmogus& temp);
 //void isvestis(zmogus& temp, int vm);
@@ -31,3 +33,4 @@ bool sortf(zmogus pirmas, zmogus antras);
 void fgeneravimas(int ndskc, int dydis);
 void apskaiciavimas(std::vector <zmogus>& amas, std::vector <std::string>& ndskcc, int dydis);
 std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit);
+#pragma once
