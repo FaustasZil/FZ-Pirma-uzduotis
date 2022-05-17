@@ -1,4 +1,4 @@
-#include "zmogus.h"
+#include "studentas.h"
 using std::cout;
 using std::cin;
 using std::string;
@@ -9,7 +9,7 @@ int main() {
 	int M, N;
 	int vm = 1;
 	std::vector<string> ndskcc;
-	std::vector<zmogus> amas;
+	std::vector<Studentas> amas;
 	std::vector<int> dydziai = { 1000, 10000, 100000, 1000000, 10000000 };
 	while (true) {
 		cout << "Ar norite sugeneruoti failus(1000, 10000, 100000, 1000000, 10000000)?(1 taip, 0 ne)? ";
@@ -63,7 +63,7 @@ int main() {
 		}
 	}
 	if (N == 1) {
-		std::vector<zmogus> nelaimingi;
+		std::vector<Studentas> nelaimingi;
 		for (auto i : dydziai) {
 			auto start = std::chrono::high_resolution_clock::now(); auto st = start;
 			cout << "Skaiciuojama " << i << std::endl;

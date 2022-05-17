@@ -1,4 +1,4 @@
-#include "zmogus.h"
+#include "studentas.h"
 using std::cout;
 using std::cin;
 using std::string;
@@ -111,14 +111,16 @@ void isvestis(zmogus& temp, int vm) {
 		cout << "|" << std::left << std::setw(20) << (temp.rezult / (temp.ndskc)) * 0.4 + temp.egz * 0.6 << "|" << std::endl;
 }
 */
-zmogus::zmogus(const zmogus& z) : vardas_{ z.vardas_ }, pavarde_{ z.pavarde_ }, egz_{ z.egz_ }, vidurkis_{ z.vidurkis_ }, median_{ z.median_ } {
+Studentas::Studentas(const Studentas& z) : egz_ { z.egz_ }, vidurkis_{z.vidurkis_}, median_{z.median_} {
 	vpaz_.resize(z.vpaz_.size());
+	vardas_ = z.vardas_;
+	pavarde_ = z.pavarde_;
 	for (int i = 0; i < z.vpaz_.size(); i++)
 	{
 		vpaz_[i] = z.vpaz_[i];
 	}
 }
-zmogus& zmogus::operator=(const zmogus& z) {
+Studentas& Studentas::operator=(const Studentas& z) {
 	if (&z == this) return *this;
 
 	std::vector<int> vek;
@@ -134,7 +136,7 @@ zmogus& zmogus::operator=(const zmogus& z) {
 	vidurkis_ = z.vidurkis_;
 	median_ = z.median_;
 }
-void zmogus::skaiciuoti(std::stringstream& sstemp, int& ndskcc) {
+void Studentas::skaiciuoti(std::stringstream& sstemp, int& ndskcc) {
 	sstemp >> vardas_;
 	sstemp >> pavarde_;
 	int itemp;
@@ -153,7 +155,7 @@ void zmogus::skaiciuoti(std::stringstream& sstemp, int& ndskcc) {
 		median_ = (vpaz_[(ndskcc / 2) - 1] + vpaz_[ndskcc / 2]) / 2.0;
 }
 
-void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
+void fisvestis(std::vector <Studentas> temp, int vm, string vardas) {
 	std::ofstream open_f(vardas);
 	open_f << std::endl << "|" << std::left << std::setw(20) << "Vardas" << "|" << std::left << std::setw(20) << "Pavarde" << "|";
 	std::stringstream rasbufferis;
@@ -177,7 +179,7 @@ void fisvestis(std::vector <zmogus> temp, int vm, string vardas) {
 	rasbufferis.clear();
 	open_f.close();
 }
-bool sortf(zmogus pirmas, zmogus antras) {
+bool sortf(Studentas pirmas, Studentas antras) {
 	if (pirmas.vardas() != antras.vardas())
 		return pirmas.vardas() < antras.vardas();
 }
@@ -205,7 +207,7 @@ void fgeneravimas(int ndskc, int dydis) {
 	cout << "Uztruko " << diff.count() << "s" << std::endl;
 	//baigt skaiciuot
 }
-void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, int dydis) {
+void apskaiciavimas(std::vector <Studentas>& amas, std::vector <string>& ndskcc, int dydis) {
 	//pradet skaiciuot
 	std::stringstream bufferis;
 	std::stringstream sstemp;
@@ -224,7 +226,7 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 		return;
 	}
 	string temp;
-	zmogus ztemp;
+	Studentas ztemp;
 	int itemp;
 	bufferis >> temp;
 	bufferis >> temp;
@@ -251,10 +253,10 @@ void apskaiciavimas(std::vector <zmogus>& amas, std::vector <string>& ndskcc, in
 	//baigt skaiciuot
 }
 
-std::vector<zmogus> padalinimas(std::vector <zmogus>& amas, int krit) {
+std::vector<Studentas> padalinimas(std::vector <Studentas>& amas, int krit) {
 	//pradet skaiciuot
-	std::vector<zmogus> temp;
-	std::vector<zmogus> nelaimingi;
+	std::vector<Studentas> temp;
+	std::vector<Studentas> nelaimingi;
 	if (krit == 0) {
 		for (auto i : amas) {
 			if (i.vidurkis() * 0.4 + i.egz() * 0.6 < 5.0)
