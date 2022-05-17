@@ -15,7 +15,15 @@ https://github.com/FaustasZil/FZ-Pirma-uzduotis/tree/v0.5-list
 2022-03-29: v0.5 list ir deque versijos  
 2022-04-18: Aptvarkyti for loopai vektoriu ir deque versijom  
 2022-04-19: v1.0 versija su abiem strategijom  
-  
+2022-04-30: clases zmogus kurimas  
+2022-05-01: pradine v1.1 versija  
+2022-05-10: pataisyta v1.1 versija  
+2022-05-11: v1.2 versija  
+2022-05-14: pradine v1.5 versija  
+2022-05-15: v1.5 su neveikianciom klasem  
+2022-05-16: v1.5 galutine versija  
+2022-05-19: v1.5.1 dabar veikia 10m failas  
+
 Naudojimo instrukcijos:  
 1. Atsidarius terminala root folderije, ivesti "make", spausti Enter  
 2. Susikompiliavus programai, paleisti .exe faila  
@@ -81,6 +89,8 @@ nuskaitymas(1m, 10m): 2,41s, 23,83s
        programa(1m, 10m): 8,63s, 91,36s  
   
 Apibendrinus, 2 strategija efektyvesne, list greiciausias.    
+
+Naudojant vektorius, v1.1 (su klasemis) buvo mazdaug 40 sekundziu greitesne nei strukturine versija  
 
 CPU Intel Core i7-8700 3.2GHz  
 RAM 16GB DD4 
