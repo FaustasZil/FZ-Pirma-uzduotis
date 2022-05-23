@@ -10,12 +10,11 @@
 #include <chrono>
 class zmogus {
 protected:
-	std::string vardas_, pavarde_;
+	std::string vardas_; 
+	std::string pavarde_;
 public:
-	zmogus() : vardas_(""), pavarde_("") {}
-//	zmogus(std::string v = "", std::string p = "") : vardas_{ v }, pavarde_{p}{}
-	inline std::string vardas() const { return vardas_; }
-	inline std::string pavarde() const { return pavarde_; }
+	virtual inline std::string vardas() = 0;
+	virtual inline std::string pavarde() = 0;
 };
 class Studentas : public zmogus {
 protected:
@@ -27,8 +26,10 @@ public:
 	inline double vidurkis() const { return vidurkis_; }
 	inline double median() const { return median_; }
 	inline int egz() const { return egz_; }
-	Studentas() : zmogus{}, egz_(0), median_(0), vidurkis_(0) {}
+	Studentas() : egz_(0), median_(0), vidurkis_(0) {}
 	void skaiciuoti(std::stringstream& sstemp, int& ndskcc);
+	inline std::string vardas() override { return vardas_; }
+	inline std::string pavarde() override { return pavarde_; }
 	Studentas(const Studentas& z);
 	Studentas& operator=(const Studentas& z);
 	~Studentas() { vpaz_.clear(); }
