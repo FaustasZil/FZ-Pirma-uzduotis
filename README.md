@@ -23,10 +23,13 @@ https://github.com/FaustasZil/FZ-Pirma-uzduotis/tree/v0.5-list
 2022-05-15: v1.5 su neveikianciom klasem  
 2022-05-16: v1.5 galutine versija  
 2022-05-19: v1.5.1 dabar veikia 10m failas  
+2022-05-23: v1.5.1 dabar abstrakti klase  
+2022-05-24: v2.0 finaline versija su dll ir msi failais  
 
 Naudojimo instrukcijos:  
-1. Atsidarius terminala root folderije, ivesti "make", spausti Enter  
-2. Susikompiliavus programai, paleisti .exe faila  
+1. Spauskite "ProgramosInstall.msi"  
+2. Pasirinkite norima saugojimo vieta ir teskite  
+3. Paleiskite programa naudojant "suDll.exe"  
   
 skaiciavimai imti pagal mediana  
   
