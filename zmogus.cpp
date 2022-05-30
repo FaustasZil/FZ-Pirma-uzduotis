@@ -120,6 +120,7 @@ Studentas::Studentas(const Studentas& z) : egz_ { z.egz_ }, vidurkis_{z.vidurkis
 		vpaz_[i] = z.vpaz_[i];
 	}
 }
+
 Studentas& Studentas::operator=(const Studentas& z) {
 	if (&z == this) return *this;
 

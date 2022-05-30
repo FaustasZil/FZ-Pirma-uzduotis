@@ -27,9 +27,30 @@ public:
 	inline double median() const { return median_; }
 	inline int egz() const { return egz_; }
 	Studentas() : egz_(0), median_(0), vidurkis_(0) {}
+	//Studentas(std::string vard, std::string pavard, int egza, int mediana, int vidurk);
 	void skaiciuoti(std::stringstream& sstemp, int& ndskcc);
 	inline std::string vardas() override { return vardas_; }
 	inline std::string pavarde() override { return pavarde_; }
+
+	void setVidurkis(double i) { vidurkis_ = i; }
+	void skcVidurki() {
+		double temp = 0;  for (int i = 0; i < vpaz_.size(); i++) temp += vpaz_[i]; vidurkis_ = temp / vpaz_.size();
+		vidurkis_ = vidurkis_ * 0.4 + egz_ * 0.6;
+	}
+	void setMedian(double i) { median_ = i; }
+	void skcMedian() {
+		std::sort(vpaz_.begin(), vpaz_.end());
+		if (vpaz_.size() % 2 != 0)
+			median_ = vpaz_[vpaz_.size() / 2];
+		else
+			median_ = (vpaz_[(vpaz_.size() / 2) - 1] + vpaz_[vpaz_.size() / 2]) / 2.0;
+		median_ = median_ * 0.4 + egz_ * 0.6;
+	}
+	void setEgz(int i) { egz_ = i; }
+	void setVardas(std::string i) { vardas_ = i; }
+	void setPavarde(std::string i) { pavarde_ = i; }
+	void setPazymiai(std::vector<int> i) { vpaz_ = i; }
+
 	Studentas(const Studentas& z);
 	Studentas& operator=(const Studentas& z);
 	~Studentas() { vpaz_.clear(); }
